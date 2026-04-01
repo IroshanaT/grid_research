@@ -298,9 +298,9 @@ export default function App() {
           {/* Main content wrapper with exact side margins mentioned in spreadsheet (20px) */}
           <div className="absolute inset-y-0 left-0 right-0 px-[20px] pointer-events-none">
             {/* The 12G Guides Overlay */}
-            <div className="absolute inset-y-0 left-[20px] right-[20px] flex gap-[8px] opacity-[0.18]">
+            <div className="absolute inset-y-0 left-[20px] right-[20px] flex gap-[8px] opacity-[0.28]">
               {Array.from({ length: 12 }).map((_, i) => (
-                <div key={i} className="flex-1 h-full bg-red-400 relative">
+                <div key={i} className="flex-1 h-full bg-red-300 relative">
                   <span className="absolute -top-6 left-0 text-[10px] font-mono whitespace-nowrap text-red-700">
                     12G-{i + 1}C
                   </span>
@@ -311,9 +311,9 @@ export default function App() {
             </div>
 
             {/* The 8G Guides Overlay */}
-            <div className="absolute inset-y-0 left-[20px] right-[20px] flex gap-[8px] opacity-[0.18] mt-[250px]">
+            <div className="absolute inset-y-0 left-[20px] right-[20px] flex gap-[8px] opacity-[0.28] mt-[250px]">
               {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="flex-1 h-full bg-blue-400 relative">
+                <div key={i} className="flex-1 h-full bg-green-400 relative">
                   <span className="absolute -top-6 left-0 text-[10px] font-mono whitespace-nowrap text-blue-700">
                     8G-{i + 1}C
                   </span>
@@ -398,7 +398,7 @@ export default function App() {
               system
             </li>
             <li>
-              <strong className="text-blue-500">Blue columns:</strong> 8G Grid
+              <strong className="text-green-500">Green columns:</strong> 8G Grid
               system (starts lower purely for visual clarity)
             </li>
             <li>Both use a fixed 8px grid gap and 20px padding left/right.</li>
