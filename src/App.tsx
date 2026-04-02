@@ -188,7 +188,9 @@ export default function App() {
                       Old:
                     </span>
                     <code className="text-xs font-mono font-bold text-gray-700 bg-gray-100 px-2 py-1 rounded flex-1">
-                      {activeBlock.gridSystem}{activeBlock.startCol}C{activeBlock.startRow}R-{activeBlock.type === 'label' ? 'lbl' : 'inputbx'}
+                      {activeBlock.gridSystem}
+                      {activeBlock.startCol}C{activeBlock.startRow}R-
+                      {activeBlock.type === "label" ? "lbl" : "inputbx"}
                     </code>
                   </div>
                   <div className="flex items-center gap-2">
@@ -196,20 +198,36 @@ export default function App() {
                       New:
                     </span>
                     <code className="text-xs font-mono font-bold text-blue-700 bg-blue-50 px-2 py-1 rounded border border-blue-200 flex-1">
-                      {activeBlock.gridSystem}{activeBlock.startCol}C{activeBlock.startRow}R{activeBlock.startCol}SC{activeBlock.span}SP-{activeBlock.type === 'label' ? 'lbl' : 'inputbx'}
+                      {activeBlock.gridSystem}
+                      {activeBlock.startCol}C{activeBlock.startRow}R
+                      {activeBlock.span}SP-
+                      {activeBlock.type === "label" ? "lbl" : "inputbx"}
                     </code>
                   </div>
                 </div>
-                
+
                 {/* Legend */}
                 <div className="mt-3 pt-2 border-t border-gray-200">
-                  <p className="text-[10px] font-semibold text-gray-600 mb-1">Legend:</p>
+                  <p className="text-[10px] font-semibold text-gray-600 mb-1">
+                    Legend:
+                  </p>
                   <div className="flex flex-wrap gap-x-3 gap-y-1 text-[9px]">
-                    <span className="text-gray-600"><span className="font-bold text-blue-600">G</span> = Grid Layout</span>
-                    <span className="text-gray-600"><span className="font-bold text-blue-600">C</span> = Column No</span>
-                    <span className="text-gray-600"><span className="font-bold text-blue-600">R</span> = Row No</span>
-                    <span className="text-gray-600"><span className="font-bold text-blue-600">SC</span> = Start Column</span>
-                    <span className="text-gray-600"><span className="font-bold text-blue-600">SP</span> = Column Span</span>
+                    <span className="text-gray-600">
+                      <span className="font-bold text-blue-600">G</span> = Grid
+                      Layout
+                    </span>
+                    <span className="text-gray-600">
+                      <span className="font-bold text-blue-600">C</span> =
+                      Column No
+                    </span>
+                    <span className="text-gray-600">
+                      <span className="font-bold text-blue-600">R</span> = Row
+                      No
+                    </span>
+                    <span className="text-gray-600">
+                      <span className="font-bold text-blue-600">SP</span> =
+                      Column Span
+                    </span>
                   </div>
                 </div>
               </div>
