@@ -176,6 +176,43 @@ export default function App() {
                   + Add Block
                 </button>
               </div>
+
+              {/* Info Window - Naming Convention */}
+              <div className="bg-white p-3 rounded-lg border border-blue-200 shadow-sm mt-2">
+                <h3 className="text-xs font-semibold text-blue-700 mb-2">
+                  Block Label Info
+                </h3>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-medium text-gray-500 w-12">
+                      Old:
+                    </span>
+                    <code className="text-xs font-mono font-bold text-gray-700 bg-gray-100 px-2 py-1 rounded flex-1">
+                      {activeBlock.gridSystem}{activeBlock.startCol}C{activeBlock.startRow}R-{activeBlock.type === 'label' ? 'lbl' : 'inputbx'}
+                    </code>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-medium text-gray-500 w-12">
+                      New:
+                    </span>
+                    <code className="text-xs font-mono font-bold text-blue-700 bg-blue-50 px-2 py-1 rounded border border-blue-200 flex-1">
+                      {activeBlock.gridSystem}{activeBlock.startCol}C{activeBlock.startRow}R{activeBlock.startCol}SC{activeBlock.span}SP-{activeBlock.type === 'label' ? 'lbl' : 'inputbx'}
+                    </code>
+                  </div>
+                </div>
+                
+                {/* Legend */}
+                <div className="mt-3 pt-2 border-t border-gray-200">
+                  <p className="text-[10px] font-semibold text-gray-600 mb-1">Legend:</p>
+                  <div className="flex flex-wrap gap-x-3 gap-y-1 text-[9px]">
+                    <span className="text-gray-600"><span className="font-bold text-blue-600">G</span> = Grid Layout</span>
+                    <span className="text-gray-600"><span className="font-bold text-blue-600">C</span> = Column No</span>
+                    <span className="text-gray-600"><span className="font-bold text-blue-600">R</span> = Row No</span>
+                    <span className="text-gray-600"><span className="font-bold text-blue-600">SC</span> = Start Column</span>
+                    <span className="text-gray-600"><span className="font-bold text-blue-600">SP</span> = Column Span</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Right Col: Edit Active Block */}
