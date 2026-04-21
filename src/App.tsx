@@ -460,7 +460,7 @@ export default function App() {
                                   type="text"
                                   disabled
                                   value={block.text}
-                                  className="bg-transparent border border-gray-300 rounded-sm px-2 py-2 outline-none text-[13px] w-full font-sans truncate text-gray-800 pointer-events-none"
+                                  className="bg-transparent border border-gray-300 rounded-sm px-2 py-2 outline-none text-[13px] w-full h-full font-sans truncate text-gray-800 pointer-events-none"
                                   placeholder=""
                                 />
                               </div>
