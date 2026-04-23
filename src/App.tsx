@@ -3,6 +3,12 @@ import React, { useState } from "react";
 type GridSystem = "12G" | "8G";
 type BlockType = "label" | "textbox";
 
+// Row sizing constants (must match Tailwind classes used in the grid renderer)
+const ROW_HEIGHT_PX = 64; // h-[64px] on each row container
+const ROW_GAP_PX = 24; // gap-6 = 24px between rows
+const ROW_HEIGHT_WITH_GAP_PX = ROW_HEIGHT_PX + ROW_GAP_PX; // 88px
+const BLOCK_VERTICAL_INSET_PX = 8; // top-2 = 8px inset from row top/bottom
+
 interface GridBlock {
   id: string;
   type: BlockType;
@@ -10,6 +16,7 @@ interface GridBlock {
   startCol: number;
   startRow: number;
   span: number;
+  rowSpan: number;
   text: string;
 }
 
@@ -21,6 +28,7 @@ const initialBlocks: GridBlock[] = [
     startCol: 1,
     startRow: 1,
     span: 2,
+    rowSpan: 1,
     text: "Label 1",
   },
   {
@@ -30,6 +38,7 @@ const initialBlocks: GridBlock[] = [
     startCol: 3,
     startRow: 1,
     span: 3,
+    rowSpan: 1,
     text: "Input box 1",
   },
   {
@@ -39,6 +48,7 @@ const initialBlocks: GridBlock[] = [
     startCol: 5,
     startRow: 2,
     span: 2,
+    rowSpan: 1,
     text: "Label 8G",
   },
   {
@@ -48,6 +58,7 @@ const initialBlocks: GridBlock[] = [
     startCol: 7,
     startRow: 2,
     span: 2,
+    rowSpan: 1,
     text: "Text 8G",
   },
 ];
@@ -80,6 +91,7 @@ export default function App() {
       startCol: 1,
       startRow: 1,
       span: 2,
+      rowSpan: 1,
       text: "New Block",
     };
     setBlocks([...blocks, newBlock]);
@@ -200,7 +212,7 @@ export default function App() {
                     <code className="text-xs font-mono font-bold text-blue-700 bg-blue-50 px-2 py-1 rounded border border-blue-200 flex-1">
                       {activeBlock.gridSystem}
                       {activeBlock.startCol}C{activeBlock.startRow}R
-                      {activeBlock.span}SP-
+                      {activeBlock.span}SP{activeBlock.rowSpan}RSP-
                       {activeBlock.type === "label" ? "lbl" : "inputbx"}
                     </code>
                   </div>
@@ -227,6 +239,10 @@ export default function App() {
                     <span className="text-gray-600">
                       <span className="font-bold text-blue-600">SP</span> =
                       Column Span
+                    </span>
+                    <span className="text-gray-600">
+                      <span className="font-bold text-blue-600">RSP</span> =
+                      Row Span
                     </span>
                   </div>
                 </div>
@@ -326,6 +342,20 @@ export default function App() {
                   />
                 </label>
 
+                <label className="flex flex-col gap-1 text-sm">
+                  <span className="font-medium">Row Span</span>
+                  <input
+                    type="number"
+                    min="1"
+                    max={rowCount - activeBlock.startRow + 1}
+                    className="border border-gray-300 rounded px-2 py-1.5 outline-none focus:border-blue-500"
+                    value={activeBlock.rowSpan}
+                    onChange={(e) =>
+                      updateBlock({ rowSpan: parseInt(e.target.value) || 1 })
+                    }
+                  />
+                </label>
+
                 <label className="flex flex-col gap-1 text-sm sm:col-span-2">
                   <span className="font-medium">Text / Value</span>
                   <input
@@ -403,9 +433,15 @@ export default function App() {
                         return (
                           <div
                             key={block.id}
-                            className={`absolute top-2 bottom-2 group transition-all duration-200 ${colClass}`}
-                            style={{ left: leftStr, width: widthStr }}
-                            title={`${block.type} in ${block.gridSystem} spanning ${block.span}`}
+                            className={`absolute group transition-all duration-200 ${colClass}`}
+                            style={{
+                              left: leftStr,
+                              width: widthStr,
+                              top: `${BLOCK_VERTICAL_INSET_PX}px`,
+                              height: `calc(${block.rowSpan} * ${ROW_HEIGHT_WITH_GAP_PX}px - ${ROW_GAP_PX + 2 * BLOCK_VERTICAL_INSET_PX}px)`,
+                              zIndex: block.rowSpan > 1 ? 5 : undefined,
+                            }}
+                            title={`${block.type} in ${block.gridSystem} spanning ${block.span} col(s), ${block.rowSpan} row(s)`}
                             onClick={() => setActiveBlockId(block.id)}
                           >
                             {block.type === "label" ? (
@@ -424,7 +460,7 @@ export default function App() {
                                   type="text"
                                   disabled
                                   value={block.text}
-                                  className="bg-transparent border border-gray-300 rounded-sm px-2 py-2 outline-none text-[13px] w-full font-sans truncate text-gray-800 pointer-events-none"
+                                  className="bg-transparent border border-gray-300 rounded-sm px-2 py-2 outline-none text-[13px] w-full h-full font-sans truncate text-gray-800 pointer-events-none"
                                   placeholder=""
                                 />
                               </div>
@@ -432,7 +468,8 @@ export default function App() {
 
                             <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-[10px] font-mono bg-gray-800 text-white px-2 py-0.5 rounded pointer-events-none z-20">
                               {block.gridSystem} &bull; R{block.startRow}C
-                              {block.startCol} &bull; Span: {block.span}
+                              {block.startCol} &bull; Span: {block.span} &bull;
+                              RowSpan: {block.rowSpan}
                             </div>
                           </div>
                         );
